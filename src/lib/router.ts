@@ -24,7 +24,8 @@ function parseLocation(): Route {
   }
 
   const parts = target.split('/').filter(Boolean);
-  if (parts[0] === 'projects' || parts[0] === 'project') {
+  const validPrefixes = ['projects', 'project', 'projetos', 'projeto'];
+  if (validPrefixes.includes(parts[0])) {
     if (parts[1]) {
       return { type: 'project', slug: parts[1] };
     }

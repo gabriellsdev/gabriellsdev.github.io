@@ -1,0 +1,31 @@
+{
+  "name": "gabriellsdev.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && node scripts/copy-static.cjs",
+    "preview": "vite preview",
+    "check": "tsc --noEmit"
+  },
+  "bugs": {
+    "url": "https://github.com/gabriellsdev/gabriellsdev.github.io/issues"
+  },
+  "homepage": "https://github.com/gabriellsdev/gabriellsdev.github.io#readme",
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  }
+}

@@ -1,0 +1,64 @@
+/* Accessibility & prefers-reduced-motion overrides (WCAG 2.2 Compliant) */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .wheel-carousel {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .wheel-card-wrapper {
+    transition: none !important;
+  }
+
+  .wheel-orbital-ring {
+    display: none !important;
+  }
+
+  .hero-meta-dot {
+    animation: none !important;
+  }
+}
+
+/* High Contrast & Forced Colors Mode */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid Highlight !important;
+    outline-offset: 4px !important;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-gold {
+    border: 2px solid ButtonText !important;
+  }
+
+  .wheel-card {
+    border: 2px solid ButtonText !important;
+  }
+
+  .wheel-card.is-active {
+    border: 3px solid Highlight !important;
+  }
+}
+
+/* Screen Reader Only Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

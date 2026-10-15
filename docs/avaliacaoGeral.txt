@@ -1,0 +1,240 @@
+1. Avaliação geral
+Critério	Nota	Minha avaliação
+Direção estratégica	9/10	Identifica as principais decisões que precisam ser tomadas antes do desenvolvimento.
+Arquitetura de software	8,5/10	Boa separação entre componentes, dados, navegação e experiências individuais.
+Planejamento de implementação	9/10	A sequência proposta reduz riscos e evita investir cedo demais em efeitos complexos.
+Experiência do usuário	9/10	Reconhece que a roda precisa ser uma ferramenta de navegação, não apenas decoração.
+Acessibilidade	9/10	Trata acessibilidade como requisito desde o início.
+Desempenho	8,5/10	Apresenta boas precauções, embora ainda faltem metas mensuráveis para validar a implementação.
+Clareza das decisões	8,5/10	Distingue corretamente hipóteses, decisões pendentes e requisitos.
+Prontidão para implementação	8/10	Está perto de ser uma boa base de desenvolvimento, mas algumas decisões precisam ser tomadas primeiro.
+
+
+Nota geral: 8,7/10.
+Essa nota avalia a qualidade do planejamento, não a qualidade do site final, que ainda precisará ser demonstrada.
+O documento tem um mérito importante: não transforma automaticamente todas as ideias visuais em requisitos obrigatórios. Na linha 5, ele esclarece que as recomendações são hipóteses iniciais que precisam ser validadas. Essa é uma postura muito mais madura do que simplesmente tentar implementar tudo o que foi imaginado.    planejamento-portfolio-gabriel-…
+2. O maior acerto: você identificou os conflitos antes de escrever código
+A seção de diagnóstico inicial é, na minha opinião, uma das melhores partes do documento.
+Ela identifica problemas que poderiam causar retrabalho se fossem descobertos durante a implementação.
+Por exemplo, o planejamento reconhece que existem três conceitos diferentes envolvidos:
+- A identidade editorial da página inicial.
+- A roda como mecanismo de descoberta e seleção.
+- As páginas individuais dos projetos.
+Ele também reconhece que o número de etapas de navegação não precisa corresponder ao número de identidades visuais independentes.    planejamento-portfolio-gabriel-…
+Isso é importante porque resolve uma ambiguidade que existia no conceito original.
+Você pode ter três etapas na experiência sem precisar construir três sistemas visuais completamente separados.
+Minha interpretação seria:
+A home apresenta você. A roda apresenta seu trabalho. As páginas individuais demonstram suas competências.
+Cada etapa possui uma função específica, mas todas contribuem para o mesmo objetivo.
+Eu manteria essa estrutura.
+Uma melhoria que eu faria
+Acrescentaria uma hierarquia explícita entre os objetivos do produto.
+Por exemplo:
+1. Permitir que o visitante compreenda quem você é e o que faz.
+2. Demonstrar a qualidade técnica dos seus projetos.
+3. Facilitar o acesso ao código, às demonstrações e ao contato.
+4. Criar uma experiência visual memorável.
+5. Explorar interações experimentais sem comprometer os objetivos anteriores.
+Essa ordem não significa que a estética seja menos importante. Significa que, quando dois objetivos entrarem em conflito, você terá um critério para decidir qual deve prevalecer.
+3. A questão mais importante ainda está em aberto: para quem você está construindo?
+O próprio documento identifica esse problema na seção de diagnóstico e volta a mencioná-lo nas perguntas finais.    planejamento-portfolio-gabriel-…
+Eu considero essa a decisão mais importante de todo o planejamento.
+Um portfólio destinado principalmente a recrutadores tem necessidades diferentes de um portfólio destinado a clientes que procuram contratar um desenvolvedor.
+Se o público prioritário forem recrutadores
+A experiência precisa facilitar a identificação de:
+- Sua área de atuação.
+- Suas competências técnicas.
+- Sua experiência profissional.
+- Sua contribuição individual nos projetos.
+- Suas decisões de arquitetura.
+- Os resultados que conseguiu alcançar.
+- Seu currículo e suas informações de contato.
+Se o público prioritário forem clientes
+A apresentação precisa dar mais atenção a:
+- Problemas que você consegue resolver.
+- Funcionalidades que entrega.
+- Escopo dos serviços.
+- Evidências de que suas soluções funcionam.
+- Disponibilidade para contratação.
+- Formas de contato.
+Minha recomendação
+Eu priorizaria recrutadores técnicos e profissionais de tecnologia, sem excluir clientes potenciais.
+O motivo é que seus projetos parecem ter valor como demonstração de capacidade de implementação, resolução de problemas e experimentação técnica.
+Para esse público, uma experiência visual original pode despertar interesse, mas os estudos de caso precisam sustentar esse interesse com evidências.
+Eu não tentaria criar duas experiências completamente diferentes para dois públicos. Construiria uma experiência principal que atendesse aos dois, com conteúdo suficientemente claro para cada um.
+4. A arquitetura proposta está bem encaminhada
+A separação entre HomeAsciiHero, WorksWheel, ProjectCard, ProjectCaseStudy e os dados dos projetos é uma boa decisão.
+O documento também estabelece que a roda não deve ser responsável por armazenar as informações dos projetos. Ela deve receber o catálogo e trabalhar com o estado de seleção.    planejamento-portfolio-gabriel-…
+Isso evita um problema comum em interfaces interativas: duplicar informações em diferentes componentes e acabar apresentando dados inconsistentes.
+Imagine que o nome de um projeto seja alterado.
+Se a informação estiver duplicada em vários lugares, será necessário modificar cada ocorrência. Se os componentes utilizarem uma fonte compartilhada de dados, a atualização poderá acontecer em um único lugar.
+O que eu ajustaria
+O planejamento sugere uma estrutura como:
+src/
+├── app/ ou pages/
+├── components/
+│   ├── shell/
+│   ├── home/
+│   ├── works/
+│   └── projects/
+├── data/
+├── lib/
+└── styles/
+
+Eu manteria essa estrutura como referência, mas evitaria criar abstrações adicionais antes de existir uma necessidade concreta.
+Para quatro projetos, não é necessário construir um sistema complexo de plugins visuais, carregamento dinâmico ou composição de páginas altamente genérico.
+Eu começaria com:
+- Um catálogo tipado de projetos.
+- Uma estrutura compartilhada para os estudos de caso.
+- Componentes visuais específicos quando realmente necessários.
+- Um componente de navegação global.
+- Um módulo independente para o processamento ASCII.
+Isso é suficiente para permitir evolução sem transformar o portfólio em um projeto de arquitetura excessivamente elaborado.
+A arquitetura deve facilitar a implementação das ideias, não se tornar mais complexa do que o produto que ela sustenta.
+5. O modelo de dados é bom, mas eu faria uma correção importante
+A seção que define os campos de cada projeto está entre as mais úteis do planejamento.
+Ela propõe separar resumo, problema, solução, contribuição pessoal, tecnologias, arquitetura, funcionalidades, limitações, links, disponibilidade e mídias.    planejamento-portfolio-gabriel-…
+Essa separação é excelente para um portfólio profissional.
+Entretanto, existe um pequeno problema no modelo de disponibilidade apresentado.
+O documento utiliza:
+type ProjectAvailability = {
+  sourceCode: "public" | "private" | "not-published";
+  localExecution: "verified" | "unverified" | "not-applicable";
+  publicDemo: "available" | "unavailable";
+};
+
+O modelo é útil, mas ainda mistura estados que podem evoluir independentemente.
+Por exemplo, um projeto pode possuir código privado, funcionar localmente e ter uma demonstração pública limitada.
+O modelo permite representar isso, o que é positivo. Contudo, publicDemo: "unavailable" não distingue uma demonstração que nunca existiu de outra que existia e foi temporariamente desativada.
+Isso pode não ser necessário na primeira versão, mas vale considerar se o estado de disponibilidade será exibido publicamente.
+Eu também separaria o estado de verificação da disponibilidade.
+Uma demonstração pode estar cadastrada como disponível, mas seu link pode estar quebrado. Portanto, a disponibilidade declarada não comprova que o recurso está funcionando no momento.
+Para um portfólio pequeno, eu não criaria uma infraestrutura automática de monitoramento. Apenas estabeleceria uma rotina para verificar os links antes de publicar e periodicamente depois disso.
+6. A estratégia para o GitHub Pages merece atenção especial
+Essa é uma das poucas áreas em que eu tomaria uma decisão técnica antes de avançar muito no restante.
+O documento reconhece que React, TypeScript, Tailwind e shadcn/ui não definem, por si só, a estratégia de roteamento e publicação. Também destaca que rotas profundas precisam funcionar no ambiente escolhido.    planejamento-portfolio-gabriel-…
+Essa preocupação está correta.
+Considere uma página de projeto como:
+/projects/magi-system
+Ela pode funcionar perfeitamente durante o desenvolvimento local e apresentar um erro quando alguém acessa diretamente essa URL no GitHub Pages.
+O problema depende da configuração de build, do roteador e da forma como o site é publicado.
+Também é importante distinguir dois cenários:
+- Um site publicado em um repositório de usuário, como gabriellsdev.github.io.
+- Um site publicado em um repositório de projeto, em um caminho como gabriellsdev.github.io/portfolio/.
+O segundo cenário exige atenção adicional ao caminho-base dos arquivos e das rotas.
+O que eu faria
+Antes de implementar a roda, criaria uma prova de conceito contendo:
+1. A página inicial.
+2. Uma página de projeto.
+3. Um link para navegar entre elas.
+4. Um teste de atualização do navegador na página do projeto.
+5. Um teste de acesso direto à URL.
+6. Uma publicação no endereço definitivo.
+Só depois de validar esse fluxo eu investiria no restante da interface.
+Isso não significa que você precisa definir toda a arquitetura antecipadamente. Significa que deve resolver cedo uma incerteza que pode afetar a estrutura do projeto inteiro.
+7. A estratégia de acessibilidade está muito boa
+O planejamento não trata acessibilidade como uma lista de ajustes para o final do projeto.
+Ele prevê navegação por teclado, alternativas ao arraste, adaptação para dispositivos móveis, movimento reduzido e uma alternativa acessível para o Canvas.    planejamento-portfolio-gabriel-…
+Esse é um dos pontos mais fortes do documento.
+Eu destacaria especialmente uma decisão: a roda não pode ser o único meio de acessar os projetos.
+Isso permite preservar a proposta visual sem obrigar o visitante a compreender uma interação espacial específica.
+Também gostei da ideia de separar a funcionalidade do efeito visual.
+Se a animação estiver desativada, a pessoa ainda precisa conseguir selecionar um projeto e abrir sua página.
+Uma recomendação adicional
+Não espere a roda estar pronta para testar a navegação por teclado.
+Implemente primeiro os controles funcionais e valide a ordem de foco. Depois, adicione as transformações tridimensionais.
+Assim, você evita desenvolver uma interação que funcione visualmente, mas exija alterações significativas para se tornar acessível.
+8. O planejamento do ASCII está tecnicamente bem fundamentado
+A proposta de separar a lógica de renderização do ciclo de atualização do React é uma boa decisão.
+O documento prevê que o módulo responsável pelo ASCII receba a mídia e os parâmetros do efeito, enquanto a interface mantém referências e controles sem precisar atualizar o estado React a cada quadro.    planejamento-portfolio-gabriel-…
+Isso evita utilizar o mecanismo de atualização da interface para processar continuamente cada quadro de uma animação.
+Eu seguiria essa direção.
+Há, entretanto, uma decisão de escopo que eu tomaria antes de implementar o componente.
+A primeira versão deve converter uma imagem estática, não um vídeo em tempo real.
+O próprio planejamento sugere limitar resolução e frequência caso o projeto evolua para vídeo.
+Minha recomendação é ir além: não implemente vídeo até que a versão com fotografia esteja pronta, tenha qualidade visual satisfatória e apresente desempenho aceitável.
+O vídeo acrescenta problemas de carregamento, sincronização, frequência de processamento e consumo de recursos.
+Você pode construir uma excelente experiência com uma fotografia e uma interação bem executada.
+Não há necessidade de resolver todos os problemas simultaneamente.
+9. O maior risco do projeto continua sendo o excesso de complexidade visual
+Apesar de o planejamento reconhecer esse risco, eu ainda o considero a principal ameaça à execução.
+A proposta original reúne ASCII, scanlines, glitch, dissolução por ruído, perspectiva 3D, animações específicas e identidades visuais independentes.
+O documento agora estabelece uma ordem de implementação mais prudente, o que é excelente.    planejamento-portfolio-gabriel-…
+Mas existe uma diferença entre ter uma sequência de implementação e definir o que realmente precisa entrar na primeira versão.
+Eu criaria três níveis de escopo.
+Nível	Funcionalidades	Objetivo
+Essencial	Home funcional, apresentação, projetos, estudos de caso, navegação e links	Entregar um portfólio profissional utilizável.
+Diferencial	Retrato ASCII interativo, roda CSS 3D e transições cuidadosamente selecionadas	Dar personalidade e demonstrar competências de interface.
+Experimental	Distorções complexas, efeitos ambientais adicionais e animações mais elaboradas	Explorar possibilidades depois de validar a experiência principal.
+
+
+O nível experimental não precisa ser descartado.
+Ele apenas não deve impedir a conclusão dos dois primeiros.
+Isso é especialmente importante porque o portfólio precisa ser um produto que você consiga publicar, testar e manter, não apenas um exercício de experimentação visual.
+10. O que ainda falta no planejamento?
+Embora o documento seja bastante completo, eu acrescentaria quatro decisões.
+10.1. Definir o conteúdo profissional da página inicial
+O planejamento já identifica essa necessidade nas perguntas finais, mas ainda não estabelece uma proposta de conteúdo.    planejamento-portfolio-gabriel-…
+Eu definiria quais informações devem aparecer sem que o visitante precise rolar a página ou interagir com a roda.
+Por exemplo:
+- Nome.
+- Área de atuação.
+- Breve apresentação.
+- Acesso aos projetos.
+- Contato.
+- Currículo, se fizer sentido para seu objetivo.
+A identidade visual pode continuar minimalista. O importante é que a informação profissional não fique escondida atrás dos efeitos.
+10.2. Definir a função de cada projeto
+Os nomes dos projetos, isoladamente, não permitem determinar quais devem receber maior destaque.
+O planejamento reconhece corretamente essa limitação.    planejamento-portfolio-gabriel-…
+Antes de finalizar a roda, eu criaria uma ficha para cada candidato a projeto.
+Essa ficha deveria responder:
+- Qual problema resolve?
+- O que você implementou pessoalmente?
+- Quais tecnologias foram utilizadas?
+- Quais funcionalidades estão funcionando?
+- O que existe de demonstrável?
+- Quais decisões técnicas merecem destaque?
+Só depois disso eu definiria quais projetos entram na primeira versão.
+10.3. Definir o critério de sucesso
+O documento já propõe critérios de aceitação, mas seria útil estabelecer tarefas concretas para testar o resultado.
+Por exemplo:
+- Uma pessoa consegue identificar sua área de atuação?
+- Consegue encontrar um projeto específico?
+- Consegue entender qual problema o projeto resolve?
+- Consegue acessar o código?
+- Consegue retornar à página inicial?
+Isso é mais útil do que avaliar o portfólio apenas pela aparência.
+10.4. Definir quando parar de adicionar efeitos
+Essa questão parece simples, mas é importante.
+Eu estabeleceria uma regra:
+Um efeito visual só entra na versão publicada se melhorar a compreensão, a identidade ou a interação sem prejudicar a navegação, a acessibilidade ou o desempenho de maneira relevante.
+
+Essa regra ajuda a evitar que o desenvolvimento se transforme em uma sucessão interminável de novas animações.
+11. Como eu continuaria a partir daqui
+Eu não começaria imediatamente pela implementação completa do site.
+Minha sequência seria:
+Passo 1 — Resolver as decisões estratégicas.
+Definir o público prioritário, os projetos que serão apresentados e a direção visual que será testada.
+Passo 2 — Auditar os projetos reais.
+Reunir informações verificáveis sobre funcionalidades, tecnologias, arquitetura, limitações e disponibilidade.
+Passo 3 — Validar a publicação.
+Criar a estrutura mínima do projeto e testar uma página individual no GitHub Pages, incluindo acesso direto e atualização da URL.
+Passo 4 — Prototipar a experiência visual.
+Construir versões simplificadas da home e da roda para comparar legibilidade, hierarquia e comportamento.
+Passo 5 — Implementar um estudo de caso completo.
+Escolher um projeto representativo e desenvolver sua página do início ao fim.
+Passo 6 — Implementar os componentes interativos.
+Desenvolver o ASCII e a roda em etapas, testando cada componente isoladamente.
+Passo 7 — Refinar e validar.
+Adicionar efeitos adicionais apenas depois de verificar o funcionamento, a acessibilidade e o desempenho da experiência principal.
+Essa sequência mantém a ambição do projeto, mas diminui o risco de gastar muito tempo desenvolvendo componentes visualmente complexos antes de validar as decisões fundamentais.
+Minha conclusão
+Eu aprovaria esse planejamento como base para a próxima fase de definição e prototipagem, mas ainda não como uma especificação inteiramente fechada para produção.
+O documento já faz algo que considero muito importante: distingue o que foi decidido daquilo que ainda precisa ser investigado.
+Minha principal crítica é que algumas perguntas estratégicas continuam abertas, especialmente a prioridade do público, a seleção definitiva dos projetos e a estratégia de publicação.
+Essas decisões influenciam diretamente a arquitetura, o conteúdo e a experiência visual.
+Por isso, eu não investiria agora em uma implementação completa dos efeitos.
+Primeiro, resolveria essas incertezas. Depois, construiria uma versão funcional e acrescentaria os elementos visuais progressivamente.
+A ideia central está forte. O que vai determinar a qualidade do resultado agora é a capacidade de transformar essa visão em uma experiência coerente, verificável e bem executada.
+E há uma última observação: não tente provar sua capacidade técnica tornando cada parte do portfólio extraordinariamente complexa. Um sistema simples, bem projetado e com decisões justificadas costuma demonstrar mais maturidade de engenharia do que uma arquitetura sofisticada sem necessidade real.
